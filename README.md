@@ -31,7 +31,7 @@ For now, it's posted to the public twitter account [@dareworksgh](https://twitte
 
 ## Can I test it?
 
-Sure, we're releasing two identical versions - one for test and one for live. The idea is if you find the test app useful, then install the live version instead. What's the difference between the two apps? The test app posts with the hash tag [#gh911_test](ttps://twitter.com/hashtag/gh911_test) whereas the live app posts with the hashtag [#gh911](ttps://twitter.com/hashtag/gh911). We seperated the two so you can try the app without raising false alarms.
+Sure, we're releasing two identical versions - one for test and one for live. The idea is if you find the test app useful, then install the live version instead. What's the difference between the two apps? The test app posts with the hash tag [#gh911_test](https://twitter.com/hashtag/gh911_test) whereas the live app posts with the hashtag [#gh911](https://twitter.com/hashtag/gh911). We seperated the two so you can try the app without raising false alarms.
 
 
 
