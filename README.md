@@ -9,6 +9,7 @@ We built it as open so anyone can contirbute to making it more secure and useful
 ## How is it supposed to work?
 
 Open911 was built with two scenarios in mind:
+
 1. A person is in an emergency situation and cannot do anything apart from hit a button (or two)
 2. A person witnesses an emergency and has reasonable time to describe the event
 
@@ -30,23 +31,28 @@ Sure, we're releasing two identical versions - one for test and one for live. Th
 ## Cool app. How can I help?
 
 :) Thanks for the compliment and thank you for asking. There's a lot that we're hoping to do with Open 911 and with your help we can evolve it much faster. A few of our ideas are as follows:
-[ ] Including pictures in emergency requests for scenario 2
-[ ] Including audio in emergency requests for both scenarios
-[ ] Including code to identify user making request (since for most countries mobile numbers are registered we would like to use the mobile numbers). This is meant to discourage abuses of the system
-[ ] Making it possible for 'volunteers' (eg law enforcement agencies, journalists) to be notified when there's an emergency in their vicinity so they can offer assistance
-[ ] Allowing abuses of the system to be flagged
-[ ] Allowing confirmed abusers to be banned
-[ ] Posting requests to a site designed specifically for that purpose. That way we can carry out some analysis of emergency incidents.
-[ ] Many many more
+
+- [ ] Including pictures in emergency requests for scenario 2
+- [ ] Including audio in emergency requests for both scenarios
+- [ ] Including code to identify user making request (since for most countries mobile numbers are registered we would like to use the mobile numbers). This is meant to discourage abuses of the system
+- [ ] Making it possible for 'volunteers' (eg law enforcement agencies, journalists) to be notified when there's an emergency in their vicinity so they can offer assistance
+- [ ] Allowing abuses of the system to be flagged
+- [ ] Allowing confirmed abusers to be banned
+- [ ] Posting requests to a site designed specifically for that purpose. That way we can carry out some analysis of emergency incidents.
+- [ ] Many many more
 
 With such a growing list of features any assistance is more than welcome.
 A few suggestions on how you can help:
-[ ] Recommend the app to a friend, blog about it or post a note on your wall.
-[ ] Contribute code
-[ ] Help review contributed code (especially for saftey)
-[ ] Help improve our UI. 
-[ ] Suggest features we can implement bearing in mind the two scenarios enumerated earlier.
-[ ] Contribute tests
+
+- [ ] Recommend the app to a friend, blog about it or post a note on your wall.
+- [ ] Contribute code
+- [ ] Help review contributed code (especially for saftey)
+- [ ] Help improve our UI. 
+- [ ] Suggest features we can implement bearing in mind the two scenarios enumerated earlier.
+- [ ] Contribute tests
+
+
+Thank you
 
 
 
