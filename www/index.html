@@ -30,14 +30,16 @@
         <title>Open911</title>
     </head>
     <body>
-        <div class="app">
+        <div class="app" id="app_window">
             <h1>Open 911</h1>
             <font color=red>Please indicate your emergency</font><br />&nbsp;<br />
             <form id="call_911" name="">
-                <textarea name="emergency" rows=5 cols=20></textarea><br />
-                <input type="text" id="loc" name="loc" disabled />
+                <input type="hidden" name="caller" value="open911" />
+                <input name="phone-number" type="hidden" value="555-555-555">
+                <textarea name="complaint" id="complaint" rows=5 cols=20></textarea><br />
+                <input type="text" id="location" name="location" disabled />
                 <input type=button value="Post Emergency">
-                <input type=button value="Cancel"><br />
+                <input type=button value="Cancel" onclick="navigator.app.exitApp();"><br />
                 <font color="red" size="small"><b>* Please do not post if this is not an emergency !</b></font>
             </form>
         </div>
@@ -54,13 +56,40 @@
             if (window.jQuery) {  
                 // jQuery is loaded  
                 function saveLastKnownLocation(pos){
-                    $('#loc').val('('+pos.coords.longitude+','+pos.coords.latitude+')');
+                    $('#location').val('('+pos.coords.latitude+','+pos.coords.longitude+')');
                 }
             
                 function submit911Call() {
                     var disabled = $('#call_911').find(':input:disabled').removeAttr('disabled');
-                    alert($('#call_911').serialize());
+                    //alert($('#call_911').serialize());                    
+                    $.ajax({
+                        type: "POST",
+                        url: "http://siteopen911.appspot.com/",
+                        data: $("#call_911").serialize(),
+                        dataType: "html",
+                        crossDomain: true,
+                        async: false,
+                        success: function(data) {
+                            $('#app_window').text("Msg sent => " + $('#call_911').serialize());
+                            setTimeout(navigator.app.exitApp(), 3000);
+                        },
+                        error: function() {
+                            $('#app_window').text('A server error prevented this request from being submitted.');
+                        },
+                    });
+
+
+                    //It works
+                    //Will use this later for app registration on android phones
+//                    var number = "+233266179146";
+//                    var message = "It worked";
+//                    var intent = "INTENT"; //leave empty for sending sms using default intent
+//                    var success = function () { alert('Message sent successfully'); };
+//                    var error = function (e) { alert('Message Failed:' + e); };
+//                    sms.send(number, message, intent, success, error);
+                    
                     disabled.attr('disabled','disabled');
+
                 }
 
                 function resetTimer(){
@@ -70,7 +99,7 @@
             
                 app.initialize();
                 navigator.geolocation.getCurrentPosition(saveLastKnownLocation);
-                $(document.body).bind('mousemove,keydown,click',resetTimer);
+                $("complaint").change(resetTimer);
                 resetTimer(); // Start the timer when the page loads
             
             } else {

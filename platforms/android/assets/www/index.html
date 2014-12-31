@@ -25,28 +25,89 @@
         <meta name="format-detection" content="telephone=no" />
         <meta name="msapplication-tap-highlight" content="no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=0" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>Open911</title>
     </head>
     <body>
-        <div class="app">
+        <div class="app" id="app_window">
             <h1>Open 911</h1>
             <font color=red>Please indicate your emergency</font><br />&nbsp;<br />
-            <form>
-                <textarea rows=5 cols=20></textarea>
+            <form id="call_911" name="">
+                <input type="hidden" name="caller" value="open911" />
+                <input name="phone-number" type="hidden" value="555-555-555">
+                <textarea name="complaint" id="complaint" rows=5 cols=20></textarea><br />
+                <input type="text" id="location" name="location" disabled />
                 <input type=button value="Post Emergency">
-                <input type=button value="Cancel"><br />
+                <input type=button value="Cancel" onclick="navigator.app.exitApp();"><br />
                 <font color="red" size="small"><b>* Please do not post if this is not an emergency !</b></font>
             </form>
         </div>
+        
+        
         <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
-            var geocoder;
-            app.initialize();
+            var idleSeconds = 10;
+            var idleTimer;
+            
+            if (window.jQuery) {  
+                // jQuery is loaded  
+                function saveLastKnownLocation(pos){
+                    $('#location').val('('+pos.coords.latitude+','+pos.coords.longitude+')');
+                }
+            
+                function submit911Call() {
+                    var disabled = $('#call_911').find(':input:disabled').removeAttr('disabled');
+                    //alert($('#call_911').serialize());                    
+                    $.ajax({
+                        type: "POST",
+                        url: "http://siteopen911.appspot.com/",
+                        data: $("#call_911").serialize(),
+                        dataType: "html",
+                        crossDomain: true,
+                        async: false,
+                        success: function(data) {
+                            $('#app_window').text("Msg sent => " + $('#call_911').serialize());
+                            setTimeout(navigator.app.exitApp(), 3000);
+                        },
+                        error: function() {
+                            $('#app_window').text('A server error prevented this request from being submitted.');
+                        },
+                    });
+
+
+                    //It works
+                    //Will use this later for app registration on android phones
+//                    var number = "+233266179146";
+//                    var message = "It worked";
+//                    var intent = "INTENT"; //leave empty for sending sms using default intent
+//                    var success = function () { alert('Message sent successfully'); };
+//                    var error = function (e) { alert('Message Failed:' + e); };
+//                    sms.send(number, message, intent, success, error);
+                    
+                    disabled.attr('disabled','disabled');
+
+                }
+
+                function resetTimer(){
+                    clearTimeout(idleTimer);
+                    idleTimer = setTimeout(submit911Call,idleSeconds*1000);
+                }
+            
+                app.initialize();
+                navigator.geolocation.getCurrentPosition(saveLastKnownLocation);
+                $("complaint").change(resetTimer);
+                resetTimer(); // Start the timer when the page loads
+            
+            } else {
+                // jQuery is not loaded
+                alert('$ Not loaded');
+            }
+        
+
             
         </script>
     </body>
